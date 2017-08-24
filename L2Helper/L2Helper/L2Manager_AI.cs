@@ -21,6 +21,19 @@ namespace L2Helper
         static int lastTHP;
         static bool AIrunning = false;
         public static bool runOnActive = true;
+        public static Character selected;
+        public static bool DoStatCheck = true;
+        public static List<Class> classList = new List<Class>();
+
+        public static void FillClassData() {
+            classList.Add(new Class(""));
+            classList.Add(new Class("Warcryer"));
+            classList.Add(new Class("Tank"));
+            classList.Add(new Class("BladeDancer"));
+            classList.Add(new Class("SwordSinger"));
+            classList.Add(new Class("Fighter"));
+        }
+
 
         public static async void AILoopStart()
         {
@@ -141,49 +154,43 @@ namespace L2Helper
             Sleep(500, 100);
             foreach (Character c in Chars)
             {
-                if (c.AIrun && c.hp>0)
+                if (c.AIrun && (c.hp.val > 0||!DoStatCheck))
                 {
-                    if (c.active)
+                    if (c.main)
                     {
                         if (runOnActive)
                         {
                             ActivateProcessWindow(c.p);
-                            string log = "char " + Char.name + " hp " + Char.php + "% THP " + THP + "/" + THPmax;
+                            string log = "char " + Char.name + " hp " + Char.hp.p + "% THP " + THP + "/" + THP.max;
 
-                            if (THP == 0 && lastTHP > 0)
+                            if (THP.val == 0 && lastTHP > 0)
                             {
                                 lastTHP = 0;
-                                //SendKeys.SendWait("{ESC}");	
-                                sendKeystroke(c.p.MainWindowHandle, VK.ESC);
+                                SendKeystroke(c.p.MainWindowHandle, VK.ESC);
 
                             }
                             log += " > clear target";
                             Sleep(100, 20);
 
-                            if ((THP == 0 || THP == THPmax) && Char.php > 50)
+                            if ((THP.val == 0 || THP.val == THP.max) && (Char.hp.p > 50 || !DoStatCheck))
                             {
                                 log += " > next target";
-                                //SendKeys.SendWait("{F1}");
-                                sendKeystroke(c.p.MainWindowHandle, VK.F1);
+                                SendKeystroke(c.p.MainWindowHandle, VK.F1);
                                 Sleep(200, 20);
                             }
-                            else if (Char.php < 50)
+                            else if (Char.hp.p < 50)
                             {
                                 log += " > low health > pick";
-                                //SendKeys.SendWait("{F4}");
-                                sendKeystroke(c.p.MainWindowHandle, VK.F9);
+                                SendKeystroke(c.p.MainWindowHandle, VK.F9);
                                 Sleep(500, 20);
-                                //SendKeys.SendWait("{F4}");
-                                sendKeystroke(c.p.MainWindowHandle, VK.F9);
+                                SendKeystroke(c.p.MainWindowHandle, VK.F9);
                                 Sleep(500, 20);
-                                //SendKeys.SendWait("{F4}");
-                                sendKeystroke(c.p.MainWindowHandle, VK.F9);
+                                SendKeystroke(c.p.MainWindowHandle, VK.F9);
                                 Sleep(500, 20);
                             }
 
                             log += " > attack";
-                            //SendKeys.SendWait("{F2}");
-                            sendKeystroke(c.p.MainWindowHandle, VK.F2);
+                            SendKeystroke(c.p.MainWindowHandle, VK.F2);
                             Sleep(100, 20);
 
                             SetAILog(log);
@@ -192,13 +199,13 @@ namespace L2Helper
                     else
                     {
                         SetAILog("secondary char > assist | "+c.p.Id);
-                        sendKeystroke(c.p.MainWindowHandle, VK.F5);
+                        SendKeystroke(c.p.MainWindowHandle, VK.F11);
                         Sleep(200, 20);
                     }
                 }
             }
 
-            if (THP == THPmax)
+            if (THP.val == THP.max)
                 Sleep(1000, 30);
 
             return 1;

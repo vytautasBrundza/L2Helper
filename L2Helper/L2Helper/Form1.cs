@@ -22,12 +22,18 @@ namespace L2Helper
             L2Manager.form = this;
             RefreshProcess();
             button5.Text = "RunOnActive:" + L2Manager.runOnActive;
+            statCheckBox.Checked = L2Manager.DoStatCheck;
+            L2Manager.FillClassData();
+            foreach (Class c in L2Manager.classList) {
+                classDropdown.Items.Add(c);
+            }
+            
         }
 
         private void RefreshProcess()
         {
             listBox1.Items.Clear();
-            L2Manager.get_process();
+            L2Manager.GetProcess();
 
             List<Character> CharsToRemove = new List<Character>();
             foreach (Character c in L2Manager.Chars)
@@ -64,75 +70,64 @@ namespace L2Helper
         {
             while (true)
             {
-                int t = await Task.Run(() => AppUpdate());
+                await Task.Run(() => AppUpdate());
 
-                SetCharBars(L2Manager.charInUse, L2Manager.THP, L2Manager.THPmax);
+                SetCharBars(L2Manager.charInUse, L2Manager.THP);
                 Thread.Sleep(100);
             }
         }
 
-        delegate void SetCharBarsCallback(Character c, int thp, int mthp);
+        delegate void SetCharBarsCallback(Character c, BarValue thp);
 
-        public void SetCharBars(Character c, int thp, int mthp)
+        public void SetCharBars(Character c, BarValue thp)
         {
             try
             {
                 if (this.HPBar.InvokeRequired)
                 {
                     SetCharBarsCallback d = new SetCharBarsCallback(SetCharBars);
-                    this.Invoke(d, new object[] { c, thp, mthp });
+                    this.Invoke(d, new object[] { c, thp});
                 }
                 else
                 {
-                    this.THPBar.Maximum = mthp;
-                    if (thp <= mthp)
-                        this.THPBar.Value = thp;
-                    this.THPlabel.Text = thp + "/" + mthp;
+                    this.THPBar.Maximum = thp.max;
+                    if (thp.val <= thp.max)
+                        this.THPBar.Value = thp.val;
+                    this.THPlabel.Text = thp.val + "/" + thp.max;
 
-                    this.HPBar.Maximum = c.mhp;
-                    if (c.hp <= c.mhp)
-                        this.HPBar.Value = c.hp;
-                    this.HPlabel.Text = c.hp + "/" + c.mhp + "/" + c.php + "%";
+                    this.HPBar.Maximum = c.hp.max;
+                    if (c.hp.val <= c.hp.max)
+                        this.HPBar.Value = c.hp.val;
+                    this.HPlabel.Text = c.hp.val + "/" + c.hp.max + "/" + c.hp.p + "%";
 
-                    this.MPBar.Maximum = c.mmp;
-                    if (c.mp <= c.mmp)
-                        this.MPBar.Value = c.mp;
-                    this.MPlabel.Text = c.mp + "/" + c.mmp + "/" + c.pmp + "%";
+                    this.MPBar.Maximum = c.mp.max;
+                    if (c.mp.val <= c.mp.max)
+                        this.MPBar.Value = c.mp.val;
+                    this.MPlabel.Text = c.mp.val + "/" + c.mp.max + "/" + c.mp.p + "%";
 
                 }
             }
             catch { }
         }
 
-        int AppUpdate()
+        void AppUpdate()
         {
-            foreach (Character c in L2Manager.Chars)
+            try
             {
-                L2Manager.charInUse = c;
-                L2Manager.get_HP();
-                L2Manager.get_MHP();
-                L2Manager.get_MP();
-                L2Manager.get_MMP();
-                if (c.active)
+                foreach (Character c in L2Manager.Chars)
                 {
-                    L2Manager.get_THP();
+                    L2Manager.charInUse = c;
+                    L2Manager.GetHP();
+                    L2Manager.GetMHP();
+                    L2Manager.GetMP();
+                    L2Manager.GetMMP();
+                    if (c == L2Manager.selected)
+                    {
+                        L2Manager.GetTHP();
+                    }
                 }
             }
-            return 1;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            //L2Manager.ActivateProcessWindow(L2Manager.charInUse.pid);
-            //L2Manager.SendKeyToWindow("{F1}");
-            L2Manager.sendKeystroke(L2Manager.activeProcess.MainWindowHandle, 0x70);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            //L2Manager.ActivateProcessWindow(L2Manager.charInUse.pid);
-            //L2Manager.SendKeyToWindow("{F2}");
-            L2Manager.sendKeystroke(L2Manager.activeProcess.MainWindowHandle, 0x71);
+            catch { }
         }
 
         private void button3_Click_1(object sender, EventArgs e)
@@ -151,13 +146,20 @@ namespace L2Helper
             if (listBox1.SelectedItem != null)
             {
                 L2Manager.activeProcess = L2Manager.processList.Find(x => x.Id == (int)listBox1.SelectedItem);
-                foreach (Character c in L2Manager.Chars)
+                Character ch = L2Manager.Chars.Find(x => x.p.Id == L2Manager.activeProcess.Id);
+                //if (ch != null) {
+                    L2Manager.selected = ch;
+                    mainCheckBox.Checked = ch.main;
+
+                    classDropdown.SelectedItem = classDropdown.Items[classDropdown.FindString(ch.clas.name)];
+                //}
+                /*foreach (Character c in L2Manager.Chars)
                 {
-                    if (c.p.Id == L2Manager.activeProcess.Id)
-                        c.active = true;
-                    else
-                        c.active = false;
-                }
+                    if (c.p.Id == L2Manager.activeProcess.Id) {
+                        L2Manager.selected = c;
+                        mainCheckBox.Checked = c.main;
+                    }
+                }*/
             }
         }
 
@@ -180,6 +182,21 @@ namespace L2Helper
         private void button6_Click(object sender, EventArgs e)
         {
             L2Manager.AILoopStopAll();
+        }
+
+        private void CharMainToggle(object sender, EventArgs e)
+        {
+            L2Manager.selected.main = mainCheckBox.Checked;
+        }
+
+        private void DoStatCheckToggle(object sender, EventArgs e)
+        {
+            L2Manager.DoStatCheck = statCheckBox.Checked;
+        }
+
+        private void classSelected(object sender, EventArgs e)
+        {
+            L2Manager.selected.clas = (Class)classDropdown.SelectedItem;
         }
     }
 

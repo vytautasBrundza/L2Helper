@@ -38,8 +38,7 @@ namespace L2Helper
             set { }
         }
         public static List<Character> Chars = new List<Character>();
-        public static int THPmax;
-        public static int THP;
+        public static BarValue THP = new BarValue();
 
         public static Form1 form;
 
@@ -72,7 +71,7 @@ namespace L2Helper
         public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
         //sendkeys
 
-        public static void get_process()
+        public static void GetProcess()
         {
             Process[] processes = Process.GetProcesses();
             processList.Clear();
@@ -90,7 +89,7 @@ namespace L2Helper
             }
         }
 
-        public static void sendKeystroke(IntPtr handle, ushort k)
+        public static void SendKeystroke(IntPtr handle, ushort k)
         {
             //https://stackoverflow.com/questions/10407769/directly-sending-keystrokes-to-another-process-via-hooking
             const uint WM_KEYDOWN = 0x100;
@@ -123,7 +122,7 @@ namespace L2Helper
             IntPtr h = p.MainWindowHandle;
             SetForegroundWindow(h);
         }
-        public static int read_int(UInt32[] address)
+        public static int ReadInt(UInt32[] address)
         {
             try
             {
@@ -143,9 +142,8 @@ namespace L2Helper
 
         public static byte[] ReadBytes(IntPtr Handle, Int64 Address, uint BytesToRead)
         {
-            IntPtr ptrBytesRead;
             byte[] buffer = new byte[BytesToRead];
-            ReadProcessMemory(Handle, new IntPtr(Address), buffer, BytesToRead, out ptrBytesRead);
+            ReadProcessMemory(Handle, new IntPtr(Address), buffer, BytesToRead, out IntPtr ptrBytesRead);
             return buffer;
         }
 
