@@ -140,7 +140,6 @@ namespace L2Helper
             L2Manager.AILoopStop();
         }
 
-
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox1.SelectedItem != null)
@@ -196,7 +195,12 @@ namespace L2Helper
 
         private void classSelected(object sender, EventArgs e)
         {
-            L2Manager.selected.clas = (Class)classDropdown.SelectedItem;
+            L2Manager.selected.SetClass(classDropdown.SelectedItem.ToString());
+        }
+
+        private void ToFront(object sender, EventArgs e)
+        {
+            L2Manager.ActivateProcessWindow(L2Manager.selected.p);  
         }
     }
 

@@ -52,6 +52,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.MainControl.SuspendLayout();
             this.Tab1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -68,6 +69,7 @@
             // 
             // Tab1
             // 
+            this.Tab1.Controls.Add(this.button8);
             this.Tab1.Controls.Add(this.groupBox1);
             this.Tab1.Controls.Add(this.statCheckBox);
             this.Tab1.Controls.Add(this.button6);
@@ -109,7 +111,6 @@
             // 
             // classDropdown
             // 
-            this.classDropdown.Enabled = false;
             this.classDropdown.FormattingEnabled = true;
             this.classDropdown.Location = new System.Drawing.Point(7, 93);
             this.classDropdown.Name = "classDropdown";
@@ -214,7 +215,7 @@
             // statCheckBox
             // 
             this.statCheckBox.AutoSize = true;
-            this.statCheckBox.Location = new System.Drawing.Point(157, 6);
+            this.statCheckBox.Location = new System.Drawing.Point(145, 6);
             this.statCheckBox.Name = "statCheckBox";
             this.statCheckBox.Size = new System.Drawing.Size(96, 17);
             this.statCheckBox.TabIndex = 19;
@@ -225,9 +226,9 @@
             // button6
             // 
             this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.button6.Location = new System.Drawing.Point(170, 55);
+            this.button6.Location = new System.Drawing.Point(142, 55);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(77, 24);
+            this.button6.Size = new System.Drawing.Size(67, 24);
             this.button6.TabIndex = 17;
             this.button6.Text = "AI stop All";
             this.button6.UseVisualStyleBackColor = false;
@@ -236,9 +237,9 @@
             // button7
             // 
             this.button7.BackColor = System.Drawing.Color.YellowGreen;
-            this.button7.Location = new System.Drawing.Point(82, 55);
+            this.button7.Location = new System.Drawing.Point(70, 55);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(77, 24);
+            this.button7.Size = new System.Drawing.Size(66, 24);
             this.button7.TabIndex = 16;
             this.button7.Text = "AI start All";
             this.button7.UseVisualStyleBackColor = false;
@@ -246,7 +247,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(82, 29);
+            this.button5.Location = new System.Drawing.Point(70, 29);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(121, 20);
             this.button5.TabIndex = 15;
@@ -256,9 +257,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(209, 29);
+            this.button1.Location = new System.Drawing.Point(215, 85);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(44, 20);
+            this.button1.Size = new System.Drawing.Size(39, 24);
             this.button1.TabIndex = 11;
             this.button1.Text = "Clear";
             this.button1.UseVisualStyleBackColor = true;
@@ -275,7 +276,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(82, 6);
+            this.button2.Location = new System.Drawing.Point(70, 6);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(69, 20);
             this.button2.TabIndex = 2;
@@ -288,16 +289,16 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(9, 6);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(67, 108);
+            this.listBox1.Size = new System.Drawing.Size(55, 108);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.LightPink;
-            this.button4.Location = new System.Drawing.Point(170, 85);
+            this.button4.Location = new System.Drawing.Point(142, 85);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(77, 24);
+            this.button4.Size = new System.Drawing.Size(67, 24);
             this.button4.TabIndex = 9;
             this.button4.Text = "AI stop";
             this.button4.UseVisualStyleBackColor = false;
@@ -306,13 +307,23 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.LightGreen;
-            this.button3.Location = new System.Drawing.Point(82, 85);
+            this.button3.Location = new System.Drawing.Point(70, 85);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(77, 24);
+            this.button3.Size = new System.Drawing.Size(66, 24);
             this.button3.TabIndex = 8;
             this.button3.Text = "AI start";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(197, 29);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(57, 20);
+            this.button8.TabIndex = 21;
+            this.button8.Text = "To Front";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.ToFront);
             // 
             // Form1
             // 
@@ -357,6 +368,7 @@
         private System.Windows.Forms.CheckBox statCheckBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox classDropdown;
+        private System.Windows.Forms.Button button8;
     }
 }
 

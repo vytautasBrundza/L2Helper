@@ -34,7 +34,6 @@ namespace L2Helper
             classList.Add(new Class("Fighter"));
         }
 
-
         public static async void AILoopStart()
         {
             if (!Char.AIrun)
@@ -151,10 +150,9 @@ namespace L2Helper
         static int AIUpdate()
         {
             ClearAILog();
-            Sleep(500, 100);
             foreach (Character c in Chars)
             {
-                if (c.AIrun && (c.hp.val > 0||!DoStatCheck))
+                if (c.AIrun && (c.hp.val > 0 || !DoStatCheck))
                 {
                     if (c.main)
                     {
@@ -163,44 +161,70 @@ namespace L2Helper
                             ActivateProcessWindow(c.p);
                             string log = "char " + Char.name + " hp " + Char.hp.p + "% THP " + THP + "/" + THP.max;
 
-                            if (THP.val == 0 && lastTHP > 0)
+                            if (c.busyUntil < DateTime.Now)
                             {
-                                lastTHP = 0;
-                                SendKeystroke(c.p.MainWindowHandle, VK.ESC);
+                                if (THP.val == 0 && lastTHP > 0)
+                                {
+                                    lastTHP = 0;
+                                    SendKeystroke(c.p.MainWindowHandle, VK.ESC);
+                                }
+                                log += " > clear target";
+                                Sleep(100, 20);
 
-                            }
-                            log += " > clear target";
-                            Sleep(100, 20);
+                                if ((THP.val == 0 || THP.val == THP.max) && (Char.hp.p > 50 || !DoStatCheck))
+                                {
+                                    log += " > next target";
+                                    SendKeystroke(c.p.MainWindowHandle, VK.F1);
+                                    Sleep(200, 20);
+                                }
+                                else if (Char.hp.p < 50)
+                                {
+                                    log += " > low health > pick";
+                                    SendKeystroke(c.p.MainWindowHandle, VK.F9);
+                                    Sleep(500, 20);
+                                    SendKeystroke(c.p.MainWindowHandle, VK.F9);
+                                    Sleep(500, 20);
+                                    SendKeystroke(c.p.MainWindowHandle, VK.F9);
+                                    Sleep(500, 20);
+                                }
 
-                            if ((THP.val == 0 || THP.val == THP.max) && (Char.hp.p > 50 || !DoStatCheck))
+                                log += " > attack";
+                                SendKeystroke(c.p.MainWindowHandle, VK.F2);
+                                Sleep(100, 20);
+
+                                foreach (Buff b in c.clas.buffParty) {
+                                    if (b.durationEnds < DateTime.Now)
+                                    {
+                                        if (b.Use(c))
+                                            log += "> buff " + b.name;
+                                    }
+                                }
+                            } else
                             {
-                                log += " > next target";
-                                SendKeystroke(c.p.MainWindowHandle, VK.F1);
-                                Sleep(200, 20);
+                                log += " > busy";
                             }
-                            else if (Char.hp.p < 50)
-                            {
-                                log += " > low health > pick";
-                                SendKeystroke(c.p.MainWindowHandle, VK.F9);
-                                Sleep(500, 20);
-                                SendKeystroke(c.p.MainWindowHandle, VK.F9);
-                                Sleep(500, 20);
-                                SendKeystroke(c.p.MainWindowHandle, VK.F9);
-                                Sleep(500, 20);
-                            }
-
-                            log += " > attack";
-                            SendKeystroke(c.p.MainWindowHandle, VK.F2);
-                            Sleep(100, 20);
-
                             SetAILog(log);
+
                         }
                     }
                     else
                     {
-                        SetAILog("secondary char > assist | "+c.p.Id);
-                        SendKeystroke(c.p.MainWindowHandle, VK.F11);
-                        Sleep(200, 20);
+                        if (c.busyUntil < DateTime.Now)
+                        {
+                            SetAILog("secondary char > assist | " + c.p.Id);
+                            SendKeystroke(c.p.MainWindowHandle, VK.F11);
+                            Sleep(200, 20);
+                            foreach (Buff b in c.clas.buffParty)
+                            {
+                                if (b.durationEnds < DateTime.Now)
+                                {
+                                    b.Use(c);
+                                }
+                            }
+                        }
+                        else {
+                            SetAILog("secondary char > busy | " + c.p.Id);
+                        }
                     }
                 }
             }
