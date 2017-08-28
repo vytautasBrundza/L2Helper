@@ -1,16 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using System.Windows.Forms;
-
 using System.Threading;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-
-
 
 namespace L2Helper
 {
@@ -26,12 +17,15 @@ namespace L2Helper
         public static List<Class> classList = new List<Class>();
 
         public static void FillClassData() {
+            ReadData();          
+            /*
             classList.Add(new Class(""));
             classList.Add(new Class("Warcryer"));
             classList.Add(new Class("Tank"));
             classList.Add(new Class("BladeDancer"));
             classList.Add(new Class("SwordSinger"));
             classList.Add(new Class("Fighter"));
+            */
         }
 
         public static async void AILoopStart()
@@ -60,7 +54,6 @@ namespace L2Helper
                 c.AIrun = true;
             }
             SetAILog("AI start: ALL");
-
         }
 
         public static async void AILoopStop()
@@ -136,7 +129,7 @@ namespace L2Helper
                 if (form.AItextBox.InvokeRequired)
                 {
                     ClearAILogCallback d = new ClearAILogCallback(ClearAILog);
-                    form.Invoke(d, new object[] {});
+                    form.Invoke(d, new object[] { });
                 }
                 else
                 {
@@ -234,11 +227,5 @@ namespace L2Helper
 
             return 1;
         }
-
-        static void Sleep(int time, int rand)
-        {
-            Thread.Sleep(time + rnd.Next(rand));
-        }
-
     }
 }

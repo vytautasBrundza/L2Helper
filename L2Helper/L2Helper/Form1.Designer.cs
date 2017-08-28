@@ -30,6 +30,7 @@
         {
             this.MainControl = new System.Windows.Forms.TabControl();
             this.Tab1 = new System.Windows.Forms.TabPage();
+            this.button8 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.classDropdown = new System.Windows.Forms.ComboBox();
             this.mainCheckBox = new System.Windows.Forms.CheckBox();
@@ -52,7 +53,6 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
             this.MainControl.SuspendLayout();
             this.Tab1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -88,6 +88,16 @@
             this.Tab1.TabIndex = 0;
             this.Tab1.Text = "Main";
             this.Tab1.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(197, 29);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(57, 20);
+            this.button8.TabIndex = 21;
+            this.button8.Text = "To Front";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.ToFront);
             // 
             // groupBox1
             // 
@@ -314,16 +324,6 @@
             this.button3.Text = "AI start";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(197, 29);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(57, 20);
-            this.button8.TabIndex = 21;
-            this.button8.Text = "To Front";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.ToFront);
             // 
             // Form1
             // 

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -10,7 +7,6 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace L2Helper
 {
@@ -146,19 +142,9 @@ namespace L2Helper
             {
                 L2Manager.activeProcess = L2Manager.processList.Find(x => x.Id == (int)listBox1.SelectedItem);
                 Character ch = L2Manager.Chars.Find(x => x.p.Id == L2Manager.activeProcess.Id);
-                //if (ch != null) {
-                    L2Manager.selected = ch;
-                    mainCheckBox.Checked = ch.main;
-
-                    classDropdown.SelectedItem = classDropdown.Items[classDropdown.FindString(ch.clas.name)];
-                //}
-                /*foreach (Character c in L2Manager.Chars)
-                {
-                    if (c.p.Id == L2Manager.activeProcess.Id) {
-                        L2Manager.selected = c;
-                        mainCheckBox.Checked = c.main;
-                    }
-                }*/
+                L2Manager.selected = ch;
+                mainCheckBox.Checked = ch.main;
+                classDropdown.SelectedItem = classDropdown.Items[classDropdown.FindString(ch.clas.name)];
             }
         }
 
@@ -201,6 +187,11 @@ namespace L2Helper
         private void ToFront(object sender, EventArgs e)
         {
             L2Manager.ActivateProcessWindow(L2Manager.selected.p);  
+        }
+
+        private void ImportJSON(object sender, EventArgs e)
+        {
+
         }
     }
 

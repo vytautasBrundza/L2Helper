@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-
 using System.Windows.Forms;
-
 using System.Threading;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-
 using System.Drawing;
 using System.Drawing.Imaging;
 
 
 namespace L2Helper
 {
-
-
     public static partial class L2Manager
     {
         public static string appName = "Lineage";
@@ -39,7 +33,6 @@ namespace L2Helper
         }
         public static List<Character> Chars = new List<Character>();
         public static BarValue THP = new BarValue();
-
         public static Form1 form;
 
         [DllImport("kernel32.dll")]
@@ -47,29 +40,8 @@ namespace L2Helper
             [In, Out] byte[] buffer, UInt32 size, out IntPtr lpNumberOfBytesRead);
         [DllImport("user32.dll")]
         static extern bool SetForegroundWindow(IntPtr hWnd);
-
-        //get window rect
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RECT
-        {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
-        }
-        //get window rect
-
-        //sendkeys
-        [DllImport("user32.dll")]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
         [DllImport("user32.dll")]
         public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-        //sendkeys
 
         public static void GetProcess()
         {
@@ -79,7 +51,6 @@ namespace L2Helper
             {
                 if (!String.IsNullOrEmpty(p.MainWindowTitle))
                 {
-
                     if (p.MainWindowTitle.Contains(appName))
                     {
                         processList.Add(p);
@@ -94,22 +65,11 @@ namespace L2Helper
             //https://stackoverflow.com/questions/10407769/directly-sending-keystrokes-to-another-process-via-hooking
             const uint WM_KEYDOWN = 0x100;
             const uint WM_KEYUP = 0x0101;           
-            //IntPtr WindowToFind = FindWindow(null, "Untitled1 - Notepad++");
 
-            IntPtr result3 = PostMessage(handle/*L2Manager.activeProcess.MainWindowHandle*/, WM_KEYDOWN, ((IntPtr)k), (IntPtr)0);
+            IntPtr result3 = PostMessage(handle, WM_KEYDOWN, ((IntPtr)k), (IntPtr)0);
             Thread.Sleep(100);
-            result3 = PostMessage(handle/*L2Manager.activeProcess.MainWindowHandle*/, WM_KEYUP, ((IntPtr)k), (IntPtr)0);
+            result3 = PostMessage(handle, WM_KEYUP, ((IntPtr)k), (IntPtr)0);
             Thread.Sleep(50);
-        }
-
-        public static void SendKeyToWindow(string key)
-        {
-            IntPtr h = activeProcess.MainWindowHandle;
-            SetForegroundWindow(h);
-            Thread.Sleep(300);
-            SendKeys.Send(key);
-            Thread.Sleep(300);
-            SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle);
         }
 
         public static void ActivateProcessWindow(int pid)
@@ -150,13 +110,6 @@ namespace L2Helper
         public static int ReadInt32(long Address, uint length = 4, IntPtr? Handle = null)
         {
             return BitConverter.ToInt32(ReadBytes((IntPtr)Handle, Address, length), 0);
-        }
-
-        public static string ReadString(long Address, uint length = 32, IntPtr? Handle = null)
-        {
-            string temp3 = ASCIIEncoding.Default.GetString(ReadBytes((IntPtr)Handle, Address, length));
-            string[] temp3str = temp3.Split('\0');
-            return temp3str[0];
         }
 
         public static UInt32 GetDllAddress(Process p, string ModuleName)
@@ -274,8 +227,12 @@ namespace L2Helper
                     }
                 }
             }
-
             return pointsList;
-        }      
+        }
+
+        static void Sleep(int time, int rand)
+        {
+            Thread.Sleep(time + rnd.Next(rand));
+        }
     }
 }

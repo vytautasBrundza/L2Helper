@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace L2Helper
+﻿namespace L2Helper
 {
     public static class VK // Virtual keys
     {
@@ -21,7 +15,6 @@ namespace L2Helper
         public static ushort F9 = 0x78;
         public static ushort F10 = 0x79;
         public static ushort F11 = 0x7A;
-        public static ushort F12 = 0x7B;
-        
+        public static ushort F12 = 0x7B;       
     }
 }

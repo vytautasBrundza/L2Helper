@@ -1,0 +1,179 @@
+﻿{
+  "classes": [
+    {
+      "name": "Warcryer",
+      "classType": "support",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Overlord",
+      "classType": "support",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "BladeDancer",
+      "classType": "support",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "SwordSinger",
+      "classType": "support",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Tank",
+      "classType": "tank",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Dagger",
+      "classType": "tank",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Archer",
+      "classType": "dmg",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Destroyer",
+      "classType": "dmg",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Tyrant",
+      "classType": "dmg",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "BountyHunter",
+      "classType": "dmg",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Warsmith",
+      "classType": "dmg",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Berserker",
+      "classType": "dmg",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Warder",
+      "classType": "dmg",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Soulbreaker",
+      "classType": "dmg",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Warder",
+      "classType": "dmg",
+      "autoAttackPreferred": true
+    },
+    {
+      "name": "Arbalester",
+      "classType": "dmg",
+      "autoAttackPreferred": true
+    }
+  ],
+
+  "buffs": [
+    {
+      "classList": [ "Warcryer" ],
+      "name": "WCfull",
+      "targetReq": false,
+      "cd": 60000,
+      "ks": 121,
+      "cTime": 10000,
+      "minLVL": 20,
+      "duration": 1200000,
+      "party": true,
+      "self": false
+    },
+    {
+      "classList": [ "BladeDancer" ],
+      "name": "dance",
+      "targetReq": false,
+      "cd": 30000,
+      "ks": 121,
+      "cTime": 5000,
+      "minLVL": 40,
+      "duration": 120000,
+      "party": true,
+      "self": false
+    },
+    {
+      "classList": [ "SwordSinger" ],
+      "name": "sing",
+      "targetReq": false,
+      "cd": 30000,
+      "ks": 121,
+      "cTime": 5000,
+      "minLVL": 40,
+      "duration": 120000,
+      "party": true,
+      "self": false
+    },
+    {
+      "classList": [ "Archer" ],
+      "name": "RapidShot",
+      "targetReq": false,
+      "cd": 30000,
+      "ks": 121,
+      "cTime": 5000,
+      "minLVL": 40,
+      "duration": 120000,
+      "party": false,
+      "self": true
+    }
+  ],
+  "heals": [
+    {
+      "classList": [ "Warcryer" ],
+      "name": "PartyHeal",
+      "targetReq": false,
+      "cd": 3000,
+      "ks": 120,
+      "cTime": 2000,
+      "minLVL": 40,
+      "duration": 5000,
+      "party": true,
+      "self": false
+    }
+  ],
+  "recharges": [],
+  "dmgskills": [
+    {
+      "classList": [ "Tank" ],
+      "name": "Agro",
+      "targetReq": true,
+      "cd": 6000,
+      "ks": 114,
+      "cTime": 0,
+      "minLVL": 20
+    },
+    {
+      "classList": [ "Archer" ],
+      "name": "Stun",
+      "targetReq": true,
+      "cd": 10000,
+      "ks": 115,
+      "cTime": 2000,
+      "minLVL": 20
+    },
+    {
+      "classList": [ "Archer" ],
+      "name": "DoubleShot",
+      "targetReq": false,
+      "cd": 5000,
+      "ks": 114,
+      "cTime": 1000,
+      "minLVL": 40
+    }
+  ]
+}
