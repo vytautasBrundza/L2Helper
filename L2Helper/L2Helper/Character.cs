@@ -27,7 +27,6 @@ namespace L2Helper
 
         public void SetClass(string newClassName)
         {
-
             if (newClassName != clas.name)
             {
                 clas = new Class(newClassName);
@@ -63,35 +62,32 @@ namespace L2Helper
         public Class(string _name)
         {
             name = _name;
-            /*
-            switch (name)
+            Class c = L2Manager.classList.Find(cl => cl.name == _name);
+            if (c != null)
             {
-                case "Warcryer":
-                    type = ClassType.support;
-                    autoAttackPreferred = true;
-                    buffParty.Add(new Buff("MainBuff", 20000, VK.F10, 1200000, 20000));
-                    break;
-                case "BladeDancer":
-                    type = ClassType.support;
-                    autoAttackPreferred = true;
-                    buffParty.Add(new Buff("Dance", 5000, VK.F10, 122000, 10000));
-                    break;
-                case "SwordSinger":
-                    type = ClassType.support;
-                    autoAttackPreferred = true;
-                    buffParty.Add(new Buff("Sing", 5000, VK.F10, 122000, 10000));
-                    break;
-                case "Tank":
-                    type = ClassType.tank;
-                    autoAttackPreferred = true;
-                    break;
-                case "":
-                default:
-                    type = ClassType.dmg;
-                    autoAttackPreferred = true;
-                    break;
+                this.type = c.type;
+                this.autoAttackPreferred = c.autoAttackPreferred;
+                foreach (Buff b in c.buffParty)
+                {
+                    this.buffParty.Add(b.Clone());
+                }
+                foreach (Buff b in c.buffSelf)
+                {
+                    this.buffSelf.Add(b.Clone());
+                }
+                foreach (Buff b in c.heal)
+                {
+                    this.heal.Add(b.Clone());
+                }
+                foreach (Buff b in c.recharge)
+                {
+                    this.recharge.Add(b.Clone());
+                }
+                foreach (Skill s in c.dmgSkill)
+                {
+                    this.dmgSkill.Add(s.Clone());
+                }
             }
-            */
         }
 
         public override string ToString()
@@ -106,7 +102,15 @@ namespace L2Helper
         tank,
         support,
         nuker
-    };
+    }
+
+    public enum UseCase
+    {
+        standart,
+        special,
+        lowHp,
+        lowMp
+    }
 
     public class Skill
     {
@@ -116,22 +120,34 @@ namespace L2Helper
         public int cd; //cooldown
         public ushort ks; //keyboard shortcut
         public DateTime cdrTime; // cooldown reset time
-        public int cTime; // cast time
+        public ushort cTime; // cast time
         public byte minLVL;
-        public Skill(string _name, int _cd, ushort _ks, int _ct = 0, bool _targetReq = false)
+        public bool toggle = false;
+        public UseCase use = UseCase.standart;
+
+        public Skill(string _name, int _cd, ushort _ks, UseCase _use, ushort _ct = 0, bool _targetReq = false, bool _toggle = false)
         {
             name = _name;
             targetReq = _targetReq;
             cd = _cd;
             ks = _ks;
             cTime = _ct;
+            use = _use;
+            toggle = _toggle;
             cdrTime = DateTime.Now;
         }
+
         public Skill()
         {
             cdrTime = DateTime.Now;
         }
-        public void Use(Character c)
+
+        public Skill Clone()
+        {
+            return new Skill(name, cd, ks, use, cTime, targetReq, toggle);
+        }
+
+        public bool Use(Character c)
         {
             if (cdrTime < DateTime.Now)
             {
@@ -141,7 +157,9 @@ namespace L2Helper
                 {
                     c.busyUntil = DateTime.Now.AddMilliseconds(this.cd);
                 }
+                return true;
             }
+            return false;
         }
     }
 
@@ -151,19 +169,22 @@ namespace L2Helper
         public DateTime durationEnds;
         public bool party;
         public bool self;
-        public Buff(string _name, int _cd, ushort _ks, int _duration, int _ct = 0, bool _targetReq = false)
+
+        public Buff(string _name, int _cd, ushort _ks, UseCase _use, int _duration, ushort _ct = 0, bool _targetReq = false, bool _toggle = false)
         {
             name = _name;
             targetReq = _targetReq;
             cd = _cd;
             ks = _ks;
             cTime = _ct;
+            use = _use;
+            toggle = _toggle;
             cdrTime = DateTime.Now;
             durationEnds = DateTime.Now;
             duration = _duration;
         }
 
-        public bool Use(Character c)
+        public new bool Use(Character c)
         {
             if (cdrTime < DateTime.Now)
             {
@@ -177,6 +198,11 @@ namespace L2Helper
                 return true;
             }
             return false;
+        }
+
+        public new Buff Clone()
+        {
+            return new Buff(name, cd, ks, use, duration, cTime, targetReq, toggle);
         }
     }
 }

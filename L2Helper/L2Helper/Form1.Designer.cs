@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.MainControl = new System.Windows.Forms.TabControl();
-            this.Tab1 = new System.Windows.Forms.TabPage();
+            this.MainTab = new System.Windows.Forms.TabPage();
             this.button8 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.classDropdown = new System.Windows.Forms.ComboBox();
@@ -43,7 +43,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.HPlabel = new System.Windows.Forms.Label();
             this.MPlabel = new System.Windows.Forms.Label();
-            this.statCheckBox = new System.Windows.Forms.CheckBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -53,41 +52,45 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.SettingsPage = new System.Windows.Forms.TabPage();
+            this.statCheckBox = new System.Windows.Forms.CheckBox();
+            this.pickCheckBox = new System.Windows.Forms.CheckBox();
             this.MainControl.SuspendLayout();
-            this.Tab1.SuspendLayout();
+            this.MainTab.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.SettingsPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainControl
             // 
-            this.MainControl.Controls.Add(this.Tab1);
+            this.MainControl.Controls.Add(this.MainTab);
+            this.MainControl.Controls.Add(this.SettingsPage);
             this.MainControl.Location = new System.Drawing.Point(-2, 1);
             this.MainControl.Name = "MainControl";
             this.MainControl.SelectedIndex = 0;
             this.MainControl.Size = new System.Drawing.Size(269, 468);
             this.MainControl.TabIndex = 0;
             // 
-            // Tab1
+            // MainTab
             // 
-            this.Tab1.Controls.Add(this.button8);
-            this.Tab1.Controls.Add(this.groupBox1);
-            this.Tab1.Controls.Add(this.statCheckBox);
-            this.Tab1.Controls.Add(this.button6);
-            this.Tab1.Controls.Add(this.button7);
-            this.Tab1.Controls.Add(this.button5);
-            this.Tab1.Controls.Add(this.button1);
-            this.Tab1.Controls.Add(this.AItextBox);
-            this.Tab1.Controls.Add(this.button2);
-            this.Tab1.Controls.Add(this.listBox1);
-            this.Tab1.Controls.Add(this.button4);
-            this.Tab1.Controls.Add(this.button3);
-            this.Tab1.Location = new System.Drawing.Point(4, 22);
-            this.Tab1.Name = "Tab1";
-            this.Tab1.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab1.Size = new System.Drawing.Size(261, 442);
-            this.Tab1.TabIndex = 0;
-            this.Tab1.Text = "Main";
-            this.Tab1.UseVisualStyleBackColor = true;
+            this.MainTab.Controls.Add(this.button8);
+            this.MainTab.Controls.Add(this.groupBox1);
+            this.MainTab.Controls.Add(this.button6);
+            this.MainTab.Controls.Add(this.button7);
+            this.MainTab.Controls.Add(this.button5);
+            this.MainTab.Controls.Add(this.button1);
+            this.MainTab.Controls.Add(this.AItextBox);
+            this.MainTab.Controls.Add(this.button2);
+            this.MainTab.Controls.Add(this.listBox1);
+            this.MainTab.Controls.Add(this.button4);
+            this.MainTab.Controls.Add(this.button3);
+            this.MainTab.Location = new System.Drawing.Point(4, 22);
+            this.MainTab.Name = "MainTab";
+            this.MainTab.Padding = new System.Windows.Forms.Padding(3);
+            this.MainTab.Size = new System.Drawing.Size(261, 442);
+            this.MainTab.TabIndex = 0;
+            this.MainTab.Text = "Main";
+            this.MainTab.UseVisualStyleBackColor = true;
             // 
             // button8
             // 
@@ -222,17 +225,6 @@
             this.MPlabel.TabIndex = 5;
             this.MPlabel.Text = "MP/MMP/%";
             // 
-            // statCheckBox
-            // 
-            this.statCheckBox.AutoSize = true;
-            this.statCheckBox.Location = new System.Drawing.Point(145, 6);
-            this.statCheckBox.Name = "statCheckBox";
-            this.statCheckBox.Size = new System.Drawing.Size(96, 17);
-            this.statCheckBox.TabIndex = 19;
-            this.statCheckBox.Text = "Do Stat Check";
-            this.statCheckBox.UseVisualStyleBackColor = true;
-            this.statCheckBox.CheckStateChanged += new System.EventHandler(this.DoStatCheckToggle);
-            // 
             // button6
             // 
             this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -325,6 +317,40 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
+            // SettingsPage
+            // 
+            this.SettingsPage.Controls.Add(this.pickCheckBox);
+            this.SettingsPage.Controls.Add(this.statCheckBox);
+            this.SettingsPage.Location = new System.Drawing.Point(4, 22);
+            this.SettingsPage.Name = "SettingsPage";
+            this.SettingsPage.Padding = new System.Windows.Forms.Padding(3);
+            this.SettingsPage.Size = new System.Drawing.Size(261, 442);
+            this.SettingsPage.TabIndex = 1;
+            this.SettingsPage.Text = "Settings";
+            this.SettingsPage.UseVisualStyleBackColor = true;
+            // 
+            // statCheckBox
+            // 
+            this.statCheckBox.AutoSize = true;
+            this.statCheckBox.Location = new System.Drawing.Point(6, 6);
+            this.statCheckBox.Name = "statCheckBox";
+            this.statCheckBox.Size = new System.Drawing.Size(96, 17);
+            this.statCheckBox.TabIndex = 20;
+            this.statCheckBox.Text = "Do Stat Check";
+            this.statCheckBox.UseVisualStyleBackColor = true;
+            this.statCheckBox.Click += new System.EventHandler(this.DoStatCheckToggle);
+            // 
+            // pickCheckBox
+            // 
+            this.pickCheckBox.AutoSize = true;
+            this.pickCheckBox.Location = new System.Drawing.Point(6, 29);
+            this.pickCheckBox.Name = "pickCheckBox";
+            this.pickCheckBox.Size = new System.Drawing.Size(73, 17);
+            this.pickCheckBox.TabIndex = 21;
+            this.pickCheckBox.Text = "Pick Drop";
+            this.pickCheckBox.UseVisualStyleBackColor = true;
+            this.pickCheckBox.CheckedChanged += new System.EventHandler(this.pickDoStatCheckToggle);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,18 +359,21 @@
             this.Controls.Add(this.MainControl);
             this.Name = "Form1";
             this.Text = "L2 Helper";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.MainControl.ResumeLayout(false);
-            this.Tab1.ResumeLayout(false);
-            this.Tab1.PerformLayout();
+            this.MainTab.ResumeLayout(false);
+            this.MainTab.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.SettingsPage.ResumeLayout(false);
+            this.SettingsPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabPage Tab1;
+        private System.Windows.Forms.TabPage MainTab;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ProgressBar HPBar;
@@ -365,10 +394,12 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.CheckBox mainCheckBox;
-        private System.Windows.Forms.CheckBox statCheckBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox classDropdown;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TabPage SettingsPage;
+        private System.Windows.Forms.CheckBox statCheckBox;
+        private System.Windows.Forms.CheckBox pickCheckBox;
     }
 }
 

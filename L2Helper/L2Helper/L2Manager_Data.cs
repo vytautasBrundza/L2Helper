@@ -6,13 +6,14 @@ namespace L2Helper
 {
     public static partial class L2Manager
     {
-        static void ReadData()
+        static void ReadDataJSON()
         {
             string JSONstring = File.OpenText(@"resources\data.json").ReadToEnd();
-
             var root = JsonConvert.DeserializeObject<JsonDataRoot>(JSONstring);
 
             classList = root.classes;
+            classList.Insert(0,new Class(""));
+
             foreach (Buff b in root.buffs)
             {
                 foreach (string cn in b.classList)
@@ -25,8 +26,7 @@ namespace L2Helper
                     else
                     {
                         Class cl = classList.Find(c => c.name == cn);
-                        if (cl != null) cl.buffParty.Add(b);
-                        
+                        if (cl != null) cl.buffParty.Add(b);                      
                     }
                 }
             }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace L2Helper
 {
-
     public static partial class L2Manager
     {
         static Random rnd = new Random();
@@ -13,20 +12,9 @@ namespace L2Helper
         static bool AIrunning = false;
         public static bool runOnActive = true;
         public static Character selected;
-        public static bool DoStatCheck = true;
+        public static bool DoStatCheck = false;
+        public static bool PickDrop = false;
         public static List<Class> classList = new List<Class>();
-
-        public static void FillClassData() {
-            ReadData();          
-            /*
-            classList.Add(new Class(""));
-            classList.Add(new Class("Warcryer"));
-            classList.Add(new Class("Tank"));
-            classList.Add(new Class("BladeDancer"));
-            classList.Add(new Class("SwordSinger"));
-            classList.Add(new Class("Fighter"));
-            */
-        }
 
         public static async void AILoopStart()
         {
@@ -170,9 +158,9 @@ namespace L2Helper
                                     SendKeystroke(c.p.MainWindowHandle, VK.F1);
                                     Sleep(200, 20);
                                 }
-                                else if (Char.hp.p < 50)
+                                else if (PickDrop)
                                 {
-                                    log += " > low health > pick";
+                                    log += " > picking";
                                     SendKeystroke(c.p.MainWindowHandle, VK.F9);
                                     Sleep(500, 20);
                                     SendKeystroke(c.p.MainWindowHandle, VK.F9);
@@ -191,6 +179,11 @@ namespace L2Helper
                                         if (b.Use(c))
                                             log += "> buff " + b.name;
                                     }
+                                }
+                                foreach (Skill s in c.clas.dmgSkill)
+                                {
+                                    if (s.Use(c))
+                                        log += "> skill " + s.name;
                                 }
                             } else
                             {

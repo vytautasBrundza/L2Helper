@@ -27,7 +27,7 @@
     },
     {
       "name": "Dagger",
-      "classType": "tank",
+      "classType": "dmg",
       "autoAttackPreferred": true
     },
     {
@@ -103,7 +103,7 @@
       "ks": 121,
       "cTime": 5000,
       "minLVL": 40,
-      "duration": 120000,
+      "duration": 122000,
       "party": true,
       "self": false
     },
@@ -115,7 +115,7 @@
       "ks": 121,
       "cTime": 5000,
       "minLVL": 40,
-      "duration": 120000,
+      "duration": 122000,
       "party": true,
       "self": false
     },
@@ -139,6 +139,8 @@
       "targetReq": false,
       "cd": 3000,
       "ks": 120,
+	  "use": "standart",
+	  "toggle": false,
       "cTime": 2000,
       "minLVL": 40,
       "duration": 5000,
@@ -154,6 +156,8 @@
       "targetReq": true,
       "cd": 6000,
       "ks": 114,
+	  "use": "standart",
+	  "toggle": false,
       "cTime": 0,
       "minLVL": 20
     },
@@ -163,6 +167,8 @@
       "targetReq": true,
       "cd": 10000,
       "ks": 115,
+	  "use": "standart",
+	  "toggle": false,
       "cTime": 2000,
       "minLVL": 20
     },
@@ -172,8 +178,21 @@
       "targetReq": false,
       "cd": 5000,
       "ks": 114,
+	  "use": "standart",
+	  "toggle": false,
       "cTime": 1000,
       "minLVL": 40
+    },
+	{
+      "classList": [ "Berserker" ],
+      "name": "DarkStrike",
+      "targetReq": true,
+      "cd": 5000,
+      "ks": 114,
+	  "use": "standart",
+	  "toggle": false,
+      "cTime": 1000,
+      "minLVL": 20
     }
   ]
 }

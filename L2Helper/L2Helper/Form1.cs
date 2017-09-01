@@ -18,12 +18,15 @@ namespace L2Helper
             L2Manager.form = this;
             RefreshProcess();
             button5.Text = "RunOnActive:" + L2Manager.runOnActive;
-            statCheckBox.Checked = L2Manager.DoStatCheck;
-            L2Manager.FillClassData();
+            /*statCheckBox.Checked = L2Manager.DoStatCheck;
+            pickCheckBox.Checked = L2Manager.PickDrop;*/
+            statCheckBox.Checked = (bool)Properties.Settings.Default["DoStatCheck"];
+            pickCheckBox.Checked = (bool)Properties.Settings.Default["PickDrop"];
+            
+            L2Manager.Init();
             foreach (Class c in L2Manager.classList) {
                 classDropdown.Items.Add(c);
             }
-            
         }
 
         private void RefreshProcess()
@@ -177,6 +180,14 @@ namespace L2Helper
         private void DoStatCheckToggle(object sender, EventArgs e)
         {
             L2Manager.DoStatCheck = statCheckBox.Checked;
+            Properties.Settings.Default.DoStatCheck = L2Manager.DoStatCheck;
+            Properties.Settings.Default.Save();
+        }
+        private void pickDoStatCheckToggle(object sender, EventArgs e)
+        {
+            L2Manager.PickDrop = pickCheckBox.Checked;
+            Properties.Settings.Default.PickDrop = L2Manager.PickDrop;
+            Properties.Settings.Default.Save();
         }
 
         private void classSelected(object sender, EventArgs e)
@@ -190,6 +201,11 @@ namespace L2Helper
         }
 
         private void ImportJSON(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
 
         }

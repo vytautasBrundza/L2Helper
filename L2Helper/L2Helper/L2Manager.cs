@@ -43,6 +43,12 @@ namespace L2Helper
         [DllImport("user32.dll")]
         public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
+        public static void Init()
+        {
+            DoStatCheck = Properties.Settings.Default.DoStatCheck;
+            PickDrop = Properties.Settings.Default.PickDrop;
+            ReadDataJSON();
+        }
         public static void GetProcess()
         {
             Process[] processes = Process.GetProcesses();
@@ -145,7 +151,6 @@ namespace L2Helper
             #endregion
 
             var pixelFormatSize = Image.GetPixelFormatSize(sourceBitmap.PixelFormat) / 8;
-
 
             // Copy sourceBitmap to byte array
             var sourceBitmapData = sourceBitmap.LockBits(new Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height),
